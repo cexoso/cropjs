@@ -1,4 +1,4 @@
-import Crop from '../src/index.js';
+import Crop from '../src/index';
 import imgSrc from './img.jpg';
 
 const crop = new Crop({
