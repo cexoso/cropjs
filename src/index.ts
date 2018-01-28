@@ -1,4 +1,5 @@
 export default class Crop {
+    canvas: HTMLCanvasElement
     constructor(options) {
         this.canvas = this._getCanvas(options.selectot);
         const img = this._getImg(options.imgSrc);
