@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "parcel example/index.html",
+        "build": "parcel build src/index.ts -d build",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -12,10 +13,11 @@
     "license": "ISC",
     "devDependencies": {
         "eslint": "^4.16.0",
+        "eslint-config-prettier": "^2.9.0",
         "eslint-config-xo": "^0.19.0",
         "eslint-plugin-prettier": "^2.5.0",
-        "eslint-config-prettier": "^2.9.0",
-        "prettier": "^1.10.2"
+        "prettier": "^1.10.2",
+        "typescript": "^2.6.2"
     },
     "eslintConfig": {
         "extends": [
@@ -44,7 +46,5 @@
             "prettier"
         ]
     },
-    "dependencies": {
-        
-    }
+    "dependencies": {}
 }
