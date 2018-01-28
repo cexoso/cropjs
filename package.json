@@ -17,6 +17,9 @@
         "eslint-config-xo": "^0.19.0",
         "eslint-plugin-prettier": "^2.5.0",
         "prettier": "^1.10.2",
+        "tslint": "^5.9.1",
+        "tslint-config-prettier": "^1.6.0",
+        "tslint-eslint-rules": "^4.1.1",
         "typescript": "^2.6.2"
     },
     "eslintConfig": {
@@ -46,5 +49,7 @@
             "prettier"
         ]
     },
-    "dependencies": {}
+    "dependencies": {
+        "global": "^4.3.2"
+    }
 }
