@@ -18,6 +18,6 @@ export default class Crop {
         this.imgDrawer = new ImgDrawer(canvas);
     }
     private dragBackground(e) {
-        console.info(e.current);
+        const { top, down, left, right } = this.imgDrawer;
     }
 }

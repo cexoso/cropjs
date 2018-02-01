@@ -1,10 +1,10 @@
 import Drawer from './drawer'
 const division = 6
 export default class ImgDrawer extends Drawer {
-    private left: number
-    private right: number
-    private top: number
-    private down: number
+    public left: number
+    public right: number
+    public top: number
+    public down: number
     constructor(canvas) {
         super(canvas)
         this.left = this.clientWidth / division
@@ -12,6 +12,27 @@ export default class ImgDrawer extends Drawer {
         this.top = this.clientHeight / division
         this.down = this.top * (division - 1)
         this.debug()
+    }
+    public onDrag(handle) {
+        const event: any = {};
+        if (this.needListen) {
+            this.canvas.addEventListener('touchstart', (e) => {
+                const point = e.targetTouches[0];
+                event.start = {
+                    x: point.screenX,
+                    y: point.screenY
+                }
+            })
+            this.canvas.addEventListener('touchmove', (e) => {
+                const point = e.targetTouches[0];
+                event.current = {
+                    x: point.screenX,
+                    y: point.screenY
+                }
+                this.emitter.emit('drop', event);
+            });
+        }
+        this.emitter.on('drop', handle);
     }
     private debug() {
         setTimeout(() => {

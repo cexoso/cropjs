@@ -4,14 +4,13 @@ interface IPoint {
     x: number,
     y: number
 }
-const emitter: Mitt.Emitter = new Mitt();
-
 export default class Drawer {
     protected clientWidth
     protected clientHeight
+    protected needListen = true
     protected ctx: CanvasRenderingContext2D
-    private canvas: HTMLCanvasElement
-    private needListen = true
+    protected canvas: HTMLCanvasElement
+    protected emitter: Mitt.Emitter = new Mitt();
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.fullScreen()
@@ -45,10 +44,10 @@ export default class Drawer {
                     x: point.screenX,
                     y: point.screenY
                 }
-                emitter.emit('drop', event);
+                this.emitter.emit('drop', event);
             });
         }
-        emitter.on('drop', handle);
+        this.emitter.on('drop', handle);
     }
     private fullScreen() {
         const parent = this.canvas.parentElement;
