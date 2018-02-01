@@ -1,20 +1,16 @@
+import Drawer from './drawer'
+
+type base64 = string
 export default class Crop {
-    canvas: HTMLCanvasElement
+    private imgDrawer: Drawer
     constructor(options) {
-        this.canvas = this._getCanvas(options.selectot);
-        const img = this._getImg(options.imgSrc);
-        console.log(img);
+        const container = document.querySelector(options.selectot) as HTMLElement;
+        const canvas = document.createElement("canvas")
+        container.appendChild(canvas);
+        this.imgDrawer = new Drawer(canvas);
     }
-
-    _getCanvas(selectot) {
-        return document.querySelector(selectot);
-    }
-
-    async _getImg(imgSrc) {
-        const img = new Image();
-        img.src = imgSrc;
-        img.onload = function(e) {
-            console.log(e);
-        };
+    public async setImg(getImg: () => Promise<any>) {
+        const base = await getImg();
+        this.imgDrawer.drawImg(base);
     }
 }
