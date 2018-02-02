@@ -4,42 +4,59 @@ export default class ImgDrawer extends Drawer {
     public left: number
     public right: number
     public top: number
-    public down: number
+    public bottom: number
+    private startDrop = false
     constructor(canvas) {
         super(canvas)
         this.left = this.clientWidth / division
         this.right = this.left * (division - 1)
         this.top = this.clientHeight / division
-        this.down = this.top * (division - 1)
-        this.debug()
+        this.bottom = this.top * (division - 1)
     }
-    public onDrag(handle) {
+    public onMove(handle) {
         const event: any = {};
         if (this.needListen) {
+            const touchend = () => {
+                this.startDrop = false;
+            }
             this.canvas.addEventListener('touchstart', (e) => {
-                const point = e.targetTouches[0];
-                event.start = {
-                    x: point.screenX,
-                    y: point.screenY
+                const { pageX, pageY } = e.targetTouches[0];
+                if (
+                    pageX > this.left && pageX < this.right &&
+                    pageY > this.top && pageY < this.bottom
+                ) {
+                    this.startDrop = true
+                    event.start = {
+                        x: pageX,
+                        y: pageY
+                    }
                 }
             })
             this.canvas.addEventListener('touchmove', (e) => {
-                const point = e.targetTouches[0];
-                event.current = {
-                    x: point.screenX,
-                    y: point.screenY
+                if (this.startDrop) {
+                    const { pageX, pageY } = e.targetTouches[0];
+                    event.current = {
+                        x: pageX,
+                        y: pageY
+                    }
+                    const dleft = pageX <= this.left
+                    const dright = pageX >= this.right
+                    const dtop: boolean = pageY <= this.top;
+                    const dbottom: boolean = pageY >= this.bottom;
+
+                    if (dleft || dright || dtop || dbottom) {
+                        this.emitter.emit('move', {
+                            bottom: dbottom && ((pageY - this.bottom) / this.top),
+                            left: 1 - pageX / this.left,
+                            right: 1 - pageX / this.right,
+                            top: 1 - pageY / this.top,
+                        });
+                    }
                 }
-                this.emitter.emit('drop', event);
             });
+            this.canvas.addEventListener('touchend', touchend)
+            this.canvas.addEventListener('touchcancel', touchend)
         }
-        this.emitter.on('drop', handle);
-    }
-    private debug() {
-        setTimeout(() => {
-            this.drawLine({ x: 0, y: this.top }, { x: this.clientWidth, y: this.top })
-            this.drawLine({ x: 0, y: this.down }, { x: this.clientWidth, y: this.down })
-            this.drawLine({ x: this.left, y: 0 }, { x: this.left, y: this.clientHeight })
-            this.drawLine({ x: this.right, y: 0 }, { x: this.right, y: this.clientHeight })
-        }, 100)
+        this.emitter.on('move', handle);
     }
 }

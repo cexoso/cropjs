@@ -11,6 +11,8 @@ export default class Drawer {
     protected ctx: CanvasRenderingContext2D
     protected canvas: HTMLCanvasElement
     protected emitter: Mitt.Emitter = new Mitt();
+    private deltaX = 0
+    private deltaY = 0
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.fullScreen()
@@ -22,8 +24,11 @@ export default class Drawer {
         this.ctx.lineTo(pointEnd.x, pointEnd.y);
         this.ctx.stroke();
     }
-    public drawImg(image: ImageBitmap) {
-        this.ctx.drawImage(image, 0, 0, image.width, image.height)
+    public drawImg(image: ImageBitmap, deltaX = 0, deltaY = 0) {
+        this.ctx.clearRect(0, 0, image.width, image.height)
+        this.deltaX = deltaX
+        this.deltaY = deltaY
+        this.ctx.drawImage(image, 0, 0, image.width, image.height, this.deltaX, this.deltaY, image.width, image.height)
     }
     public getCanvas() {
         return this.canvas
@@ -34,15 +39,15 @@ export default class Drawer {
             this.canvas.addEventListener('touchstart', (e) => {
                 const point = e.targetTouches[0];
                 event.start = {
-                    x: point.screenX,
-                    y: point.screenY
+                    x: point.pageX,
+                    y: point.pageY
                 }
             })
             this.canvas.addEventListener('touchmove', (e) => {
                 const point = e.targetTouches[0];
                 event.current = {
-                    x: point.screenX,
-                    y: point.screenY
+                    x: point.pageX,
+                    y: point.pageY
                 }
                 this.emitter.emit('drop', event);
             });
