@@ -24,14 +24,15 @@ export default class Drawer {
         this.ctx.lineTo(pointEnd.x, pointEnd.y);
         this.ctx.stroke();
     }
-    public drawImg(image: ImageBitmap, deltaX = 0, deltaY = 0) {
+    public drawImg(image: ImageBitmap, deltaX = 0, deltaY = 0, scale = 1) {
         this.ctx.clearRect(0, 0, image.width, image.height)
-        this.deltaX = deltaX
-        this.deltaY = deltaY
-        this.ctx.drawImage(image, 0, 0, image.width, image.height, this.deltaX, this.deltaY, image.width, image.height)
+        this.ctx.drawImage(image, 0, 0, image.width, image.height, deltaX, deltaY, image.width * scale, image.height * scale)
     }
     public getCanvas() {
         return this.canvas
+    }
+    public getCtx() {
+        return this.ctx
     }
     public onDrag(handle) {
         const event: any = {};
