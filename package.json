@@ -51,6 +51,7 @@
     },
     "dependencies": {
         "global": "^4.3.2",
+        "hammerjs": "^2.0.8",
         "mitt": "^1.1.3"
     }
 }
