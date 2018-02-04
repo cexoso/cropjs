@@ -1,5 +1,7 @@
 import * as Hammer from 'hammerjs'
 import ImgDrawer from './imgDrawer'
+import Distance from './type/distance'
+import Point from './type/point'
 
 type base64 = string
 const defaultOptions = {
@@ -8,21 +10,23 @@ const defaultOptions = {
 }
 export default class Crop {
     private imgDrawer: ImgDrawer
-    private background: any
-    private deltaX = 0
-    private deltaY = 0
+    private background: ImageBitmap
+    private startPoint = new Point(0, 0)
     private scale = 1
-    private pinchStartCenter: { x: number, y: number }
+    private pinchStartCenter: Point
     constructor(options) {
         Object.assign(options, defaultOptions)
         this.initDom(options);
         this.initEvent(options);
 
     }
-    public async setImg(getImg: () => Promise<any>) {
+    public async setImg(getImg: () => Promise<ImageBitmap>) {
         const base = await getImg();
         this.background = base
-        this.imgDrawer.drawImg(base);
+        this.drawBackground(new Point(0, 0), 1);
+    }
+    private drawBackground(startPoint: Point, scale: number) {
+        this.imgDrawer.drawImg(this.background, startPoint.x, startPoint.y, scale);
     }
     private initDom(options) {
         const container = document.querySelector(options.selectot) as HTMLElement;
@@ -43,25 +47,34 @@ export default class Crop {
     }
     private panBackground(e) {
         if (this.background !== null) {
-            this.imgDrawer.drawImg(this.background, this.deltaX + e.deltaX, this.deltaY + e.deltaY, this.scale);
+            const p = Point.move(this.startPoint, new Distance(-e.deltaX, -e.deltaY))
+            this.drawBackground(p, this.scale);
             if (e.type === 'panend') {
-                this.deltaX += e.deltaX
-                this.deltaY += e.deltaY
+                this.startPoint = p
             }
         }
     }
     private pinchBackground(e) {
+        e.preventDefault()
         if (this.background !== null) {
             const { deltaX, deltaY, scale, type, center } = e
             if (type === 'pinchstart') {
                 this.pinchStartCenter = center
             }
-            this.imgDrawer.drawImg(this.background, this.pinchStartCenter.x - (this.deltaX + e.deltaX) * this.scale * scale, this.pinchStartCenter.y - (this.deltaY + e.deltaY) * this.scale * scale, this.scale * scale);
-
+            const finalScale = this.scale * scale
+            const scaleDistance = Distance.scale(
+                Point.getDistenceBetween(center, this.startPoint),
+                finalScale
+            )
+            
+            const distance = Point.getDistenceBetween(this.pinchStartCenter, this.startPoint)
+            
+            const finalDistance = Distance.scale(distance, finalScale)
+            const finalPoint = Point.move(center as Point, finalDistance)
+            this.drawBackground(finalPoint, finalScale)
             if (type === 'pinchend') {
-                this.deltaX += deltaX
-                this.deltaY += deltaY
-                this.scale *= scale
+                this.startPoint = finalPoint
+                this.scale = finalScale
             }
         }
     }
