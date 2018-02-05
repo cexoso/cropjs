@@ -3,6 +3,7 @@ import ImgDrawer from './imgDrawer'
 import Distance from './type/distance'
 import Point from './type/point'
 
+
 type base64 = string
 const defaultOptions = {
     panImg: true,
@@ -13,7 +14,6 @@ export default class Crop {
     private background: ImageBitmap
     private startPoint = new Point(0, 0)
     private scale = 1
-    private pinchStartCenter: Point
     constructor(options) {
         Object.assign(options, defaultOptions)
         this.initDom(options);
@@ -42,9 +42,10 @@ export default class Crop {
             hammertime.on('pan panend', this.panBackground.bind(this))
         }
         if (options.pinchImg) {
-            hammertime.on('pinchstart pinch pinchend', this.pinchBackground.bind(this))
+            hammertime.on('pinch pinchend', this.pinchBackground.bind(this))
         }
     }
+    
     private panBackground(e) {
         if (this.background !== null) {
             const p = Point.move(this.startPoint, new Distance(-e.deltaX, -e.deltaY))
@@ -57,20 +58,14 @@ export default class Crop {
     private pinchBackground(e) {
         e.preventDefault()
         if (this.background !== null) {
-            const { deltaX, deltaY, scale, type, center } = e
-            if (type === 'pinchstart') {
-                this.pinchStartCenter = center
-            }
+            const { deltaX, deltaY, scale, type } = e
+            const center = e.center as Point
+            
+            const bx = center.x - scale * (center.x - this.startPoint.x)// todo重构此处使代码更好理解 
+            const by = center.y - scale * (center.y - this.startPoint.y)
+            const finalPoint = Point.move(new Point(bx, by), new Distance(-e.deltaX, -e.deltaY))
+            
             const finalScale = this.scale * scale
-            const scaleDistance = Distance.scale(
-                Point.getDistenceBetween(center, this.startPoint),
-                finalScale
-            )
-            
-            const distance = Point.getDistenceBetween(this.pinchStartCenter, this.startPoint)
-            
-            const finalDistance = Distance.scale(distance, finalScale)
-            const finalPoint = Point.move(center as Point, finalDistance)
             this.drawBackground(finalPoint, finalScale)
             if (type === 'pinchend') {
                 this.startPoint = finalPoint
