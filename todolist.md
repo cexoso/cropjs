@@ -1,0 +1,2 @@
+- [ ] dist后sourcemap的支持
+- [x] backgroudimg支持拖动 
