@@ -1,15 +1,23 @@
+// tslint:disable:object-literal-sort-keys
+const style = {
+    bottom: 0,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    backgroundColor: 'rgba(100,100,100,0.6)',
+    pointerEvents: 'none',
+    width: '100%',
+}
+// tslint:enable
 export default class CropperBorder {
     private dom: HTMLDivElement
-    private a: any
     constructor(options) {
         const {
             border,
             size,
         } = options;
         const cropper = document.createElement('div')
-        cropper.innerText = '123'
-        this.a = a;
-        
+        Object.assign(cropper.style, style)
         this.dom = cropper
     }
     public getDom() {
