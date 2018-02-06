@@ -47,7 +47,6 @@ export default class Crop {
         canvas.style.zIndex = zIndex
         canvas.style.pointerEvents = pointerEvent
         canvas.style.position = "absolute"
-
         container.appendChild(canvas)
         return factor(canvas);
     }
