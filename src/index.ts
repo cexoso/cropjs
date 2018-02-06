@@ -1,5 +1,5 @@
-import CropperBorder from './type/cropperBorder'
-import ImgDrawer from './type/imgDrawer'
+import CropperBorder from './cropperBorder'
+import ImgDrawer from './imgDrawer'
 // tslint:disable:object-literal-sort-keys
 const layerStyle = {
     position: "absolute",
