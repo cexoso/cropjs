@@ -1,15 +1,7 @@
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
+import StatusBar from './statusBar'
 import { Ioptions } from './types'
-// tslint:disable:object-literal-sort-keys
-const layerStyle = {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%"
-}
-// tslint:enable:object-literal-sort-keys
 type base64 = string
 const defaultOptions: Ioptions = {
     cropOpts: {
@@ -22,32 +14,50 @@ const defaultOptions: Ioptions = {
         panImg: true,
         pinchImg: true,
     },
+    statusOpts: {
+        zoom: true
+    },
     selector: '#croper'
 }
 export default class Crop {
     private imgDrawer: ImgDrawer
-    private borderDrawer?: ImgDrawer
+    private borderDrawer?: CropperBorder
+    private statusBar?: StatusBar
     constructor(options: Ioptions) {
-        Object.assign(options, defaultOptions)
-        this.initDom(options);
+        this.initDom({ ...defaultOptions, ...options });
     }
     public async setImg(getImg: () => Promise<ImageBitmap>) {
         return this.imgDrawer.setImg(getImg)
     }
-    private makrLayerAndInsert(container: HTMLElement, zIndex: string, pointerEvent: string, factor) {
-        const canvas = document.createElement("canvas")
-        canvas.style.zIndex = zIndex
-        canvas.style.pointerEvents = pointerEvent
-        canvas.style.position = "absolute"
-        container.appendChild(canvas)
-        return factor(canvas);
-    }
     private initDom(options: Ioptions) {
         const container = document.querySelector(options.selector) as HTMLElement;
         container.style.position = "relative"
-        this.imgDrawer = this.makrLayerAndInsert(container, "0", "initial", (canvas) => new ImgDrawer(canvas, options))
+        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvent: string, [name: string]: string }) {
+            const tag = document.createElement(tagName)
+            Object.assign(tag.style, {
+                ...style,
+                position: "absolute"
+            })
+            container.appendChild(tag)
+            return tag;
+        }
+        this.imgDrawer = new ImgDrawer(makrLayerAndInsert('canvas', { zIndex: "0", pointerEvent: "initial" }), options.imgOpts)
         if (options.cropOpts) {
-            this.borderDrawer = this.makrLayerAndInsert(container, "1", "none", (canvas) => new CropperBorder(canvas, options.cropOpts))
+            this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1", pointerEvent: "none" }), options.cropOpts)
+        }
+        if (options.statusOpts) {
+            this.statusBar = new StatusBar(
+                makrLayerAndInsert('div', {
+                    zIndex: "2",
+                    pointerEvent: "initial",
+                    bottom: "0",
+                    height: "100px",
+                    backgroundColor: "#55c5a5a8",
+                    left: "0",
+                    width: "100%"
+                }),
+                options.statusOpts
+            )
         }
     }
 }
