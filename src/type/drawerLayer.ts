@@ -4,7 +4,7 @@ interface IPoint {
     x: number,
     y: number
 }
-export default class Drawer {
+export default class DrawerLayer {
     protected clientWidth
     protected clientHeight
     protected needListen = true

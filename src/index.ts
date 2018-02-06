@@ -1,9 +1,17 @@
 import * as Hammer from 'hammerjs'
-import ImgDrawer from './imgDrawer'
 import CropperBorder from './type/cropperBorder'
 import Distance from './type/distance'
+import DrawerLayer from './type/drawerLayer'
 import Point from './type/point'
-
+// tslint:disable:object-literal-sort-keys
+const layerStyle = {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%"
+}
+// tslint:enable:object-literal-sort-keys
 type base64 = string
 const defaultOptions = {
     fixCropOpts: {
@@ -14,11 +22,11 @@ const defaultOptions = {
     pinchImg: true,
 }
 export default class Crop {
-    private imgDrawer: ImgDrawer
+    private imgDrawer: DrawerLayer
+    private borderDrawer?: DrawerLayer
     private background: ImageBitmap
     private startPoint = new Point(0, 0)
     private scale = 1
-    private cropper?: CropperBorder
     constructor(options) {
         Object.assign(options, defaultOptions)
         this.initDom(options);
@@ -32,14 +40,21 @@ export default class Crop {
     private drawBackground(startPoint: Point, scale: number) {
         this.imgDrawer.drawImg(this.background, startPoint.x, startPoint.y, scale);
     }
+    private makrLayerAndInsert(container: HTMLElement, zIndex: string, pointerEvent: string, factor) {
+        const canvas = document.createElement("canvas")
+        canvas.style.zIndex = zIndex
+        canvas.style.pointerEvents = pointerEvent
+        canvas.style.position = "absolute"
+
+        container.appendChild(canvas)
+        return factor(canvas);
+    }
     private initDom(options) {
         const container = document.querySelector(options.selectot) as HTMLElement;
-        const canvas = document.createElement("canvas")
-        container.appendChild(canvas);
-        this.imgDrawer = new ImgDrawer(canvas);
+        container.style.position = "relative"
+        this.imgDrawer = this.makrLayerAndInsert(container, "0", "initial", (canvas) => new DrawerLayer(canvas))
         if (options.fixCropOpts) {
-            this.cropper = new CropperBorder(options.fixCropOpts)
-            container.appendChild(this.cropper.getDom());
+            this.borderDrawer = this.makrLayerAndInsert(container, "1", "none", (canvas) => new CropperBorder(canvas, options))
         }
     }
     private initEvent(options) {
