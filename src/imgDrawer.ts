@@ -2,12 +2,13 @@ import * as Hammer from 'hammerjs'
 import Distance from './distance'
 import DrawerLayer from './drawerLayer'
 import Point from './point'
+import { IImgOption } from './types'
 
 export default class ImgDrawe extends DrawerLayer {
     private background: ImageBitmap
     private scale = 1
     private startPoint = new Point(0, 0)
-    constructor(canvas, options) {
+    constructor(canvas, options: IImgOption) {
         super(canvas)
         this.initEvent(canvas, options)
     }
@@ -19,7 +20,7 @@ export default class ImgDrawe extends DrawerLayer {
     private drawBackground(startPoint: Point, scale: number) {
         this.drawImg(this.background, startPoint.x, startPoint.y, scale);
     }
-    private initEvent(canvas, options) {
+    private initEvent(canvas, options: IImgOption) {
         const hammertime: any = new Hammer(canvas);
         hammertime.get('pan').set({ direction: (Hammer as any).DIRECTION_ALL });
         hammertime.get('pinch').set({ enable: true });

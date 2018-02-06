@@ -4,12 +4,16 @@ export interface ICropOption {
     size: number, // 框架大小，相对于整个canvas比例 size: 0.8 canvas宽度的0.8
     top: number, // 30%
 }
-interface IImgOption {
+export interface IImgOption {
     panImg: boolean,
     pinchImg: boolean,
 }
+export interface IstatusOption {
+    zoom: boolean
+}
 export interface Ioptions {
-    cropOpts: ICropOption
+    cropOpts?: ICropOption
     imgOpts: IImgOption
     selector: string // seletor container DOM
+    statusOpts?: IstatusOption
 }
