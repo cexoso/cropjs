@@ -15,8 +15,10 @@ const layerStyle = {
 type base64 = string
 const defaultOptions = {
     fixCropOpts: {
-        border: 1.618, // 边框的长宽比 如：1.5 长宽比为1.5 : 1
-        size: 0.8 // 框架大小，相对于整个canvas比例 size: 0.8 canvas宽度的0.8
+        border: 1.3, // 边框的长宽比 如：1.5 长宽比为1.5 : 1
+        left: 0.5, // 50%
+        size: 0.6, // 框架大小，相对于整个canvas比例 size: 0.8 canvas宽度的0.8
+        top: 0.3, // 30%
     },
     panImg: true,
     pinchImg: true,
@@ -54,7 +56,7 @@ export default class Crop {
         container.style.position = "relative"
         this.imgDrawer = this.makrLayerAndInsert(container, "0", "initial", (canvas) => new DrawerLayer(canvas))
         if (options.fixCropOpts) {
-            this.borderDrawer = this.makrLayerAndInsert(container, "1", "none", (canvas) => new CropperBorder(canvas, options))
+            this.borderDrawer = this.makrLayerAndInsert(container, "1", "none", (canvas) => new CropperBorder(canvas, options.fixCropOpts))
         }
     }
     private initEvent(options) {
