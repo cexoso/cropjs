@@ -2,7 +2,7 @@ import Crop from '../src/index';
 import imgSrc from './img.jpg';
 
 const crop = new Crop({
-    selectot: '#cvs'
+    selector: '#cvs'
 });
 function pathToBase() {
     return new Promise(resolve => {
