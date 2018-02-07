@@ -28,36 +28,18 @@ export default class DrawerLayer {
         this.ctx.clearRect(0, 0, image.width, image.height)
         this.ctx.drawImage(image, 0, 0, image.width, image.height, deltaX, deltaY, image.width * scale, image.height * scale)
     }
+    public getImageData(sx: number, sy: number, sw: number, sh: number) {
+        return this.ctx.getImageData(sx, sy, sw, sh)
+    }
     public getCanvas() {
         return this.canvas
     }
     public getCtx() {
         return this.ctx
     }
-    public onDrag(handle) {
-        const event: any = {};
-        if (this.needListen) {
-            this.canvas.addEventListener('touchstart', (e) => {
-                const point = e.targetTouches[0];
-                event.start = {
-                    x: point.pageX,
-                    y: point.pageY
-                }
-            })
-            this.canvas.addEventListener('touchmove', (e) => {
-                const point = e.targetTouches[0];
-                event.current = {
-                    x: point.pageX,
-                    y: point.pageY
-                }
-                this.emitter.emit('drop', event);
-            });
-        }
-        this.emitter.on('drop', handle);
-    }
     private fullScreen() {
         const parent = this.canvas.parentElement;
-        const { clientWidth, clientHeight} = parent
+        const { clientWidth, clientHeight } = parent
         this.canvas.width = clientWidth;
         this.canvas.height = clientHeight;
         this.clientWidth = clientWidth;
