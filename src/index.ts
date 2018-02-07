@@ -34,7 +34,7 @@ export default class Crop {
     private initDom(options: Ioptions) {
         const container = document.querySelector(options.selector) as HTMLElement;
         container.style.position = "relative"
-        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }) {
+        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }): any {
             const tag = document.createElement(tagName)
             Object.assign(tag.style, { ...style, position: "absolute" })
             container.appendChild(tag)
