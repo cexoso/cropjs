@@ -58,6 +58,8 @@ export default class Crop {
                 }),
                 options.statusOpts
             )
+            this.statusBar.addEventListener('zoomIn', console.log)
+            this.statusBar.addEventListener('zoomOut', console.log)
         }
     }
 }
