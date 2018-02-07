@@ -11,6 +11,7 @@ export default class StatusBar {
             fragment.appendChild(this.creataBotton('放大', 'zoomIn'));
             fragment.appendChild(this.creataBotton('缩小', 'zoomOut'));
         }
+        fragment.appendChild(this.creataBotton('裁剪', 'crop'));
         div.appendChild(fragment)
     }
     public addEventListener(eventName: string, eventHandle: Mitt.Handler) {
