@@ -34,8 +34,9 @@ export default class Crop {
     private initDom(options: Ioptions) {
         const container = document.querySelector(options.selector) as HTMLElement;
         container.style.position = "relative"
-        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }): any {
+        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
+            tag.setAttribute('class', className)
             Object.assign(tag.style, { ...style, position: "absolute" })
             container.appendChild(tag)
             return tag;
@@ -47,11 +48,10 @@ export default class Crop {
                 zIndex: "2",
                 pointerEvents: "initial",
                 bottom: "0",
-                height: "100px",
-                backgroundColor: "#55c5a5a8",
+                height: "40px", //一行40px,四个一行
                 left: "0",
                 width: "100%"
-            }),
+            }, 'status-bar'),
             options.statusOpts
         )
         this.statusBar.addEventListener('zoomIn', console.log)
