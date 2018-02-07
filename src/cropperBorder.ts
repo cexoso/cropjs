@@ -2,11 +2,9 @@ import DrawerLayer from './drawerLayer'
 import { ICropOption, Rect } from './types'
 
 export default class CropperBorder extends DrawerLayer {
-    private dom: HTMLCanvasElement
-    private drawer: DrawerLayer
     private rect: Rect
 
-    constructor(canvas, options: ICropOption) {
+    constructor(canvas: HTMLCanvasElement, options: ICropOption) {
         super(canvas)
         this.drawBorder(options)
     }
