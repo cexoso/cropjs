@@ -28,7 +28,7 @@ export default class Crop {
     constructor(options: Ioptions) {
         this.initDom({ ...defaultOptions, ...options });
     }
-    public async setImg(getImg: () => Promise<ImageBitmap>) {
+    public setImg(getImg: () => Promise<ImageBitmap>) {
         return this.imgDrawer.setImg(getImg)
     }
     private initDom(options: Ioptions) {
