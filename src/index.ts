@@ -1,7 +1,9 @@
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
+import Preview from './preview'
 import StatusBar from './statusBar'
 import { Ioptions } from './types'
+
 type base64 = string
 const defaultOptions: Ioptions = {
     cropOpts: {
@@ -21,8 +23,8 @@ const defaultOptions: Ioptions = {
 }
 export default class Crop {
     private imgDrawer: ImgDrawer
-    private borderDrawer?: CropperBorder
-    private statusBar?: StatusBar
+    private borderDrawer: CropperBorder
+    private statusBar: StatusBar
     constructor(options: Ioptions) {
         this.initDom({ ...defaultOptions, ...options });
     }
@@ -39,32 +41,31 @@ export default class Crop {
             return tag;
         }
         this.imgDrawer = new ImgDrawer(makrLayerAndInsert('canvas', { zIndex: "0", pointerEvents: "initial" }), options.imgOpts)
-        if (options.cropOpts) {
-            this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1", pointerEvents: "none" }), options.cropOpts)
-        }
-        if (options.statusOpts) {
-            this.statusBar = new StatusBar(
-                makrLayerAndInsert('div', {
-                    zIndex: "2",
-                    pointerEvents: "initial",
-                    bottom: "0",
-                    height: "100px",
-                    backgroundColor: "#55c5a5a8",
-                    left: "0",
-                    width: "100%"
-                }),
-                options.statusOpts
-            )
-            this.statusBar.addEventListener('zoomIn', console.log)
-            this.statusBar.addEventListener('zoomOut', console.log)
-            this.statusBar.addEventListener('crop', this.getCropData.bind(this))
-        }
+        this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1", pointerEvents: "none" }), options.cropOpts)
+        this.statusBar = new StatusBar(
+            makrLayerAndInsert('div', {
+                zIndex: "2",
+                pointerEvents: "initial",
+                bottom: "0",
+                height: "100px",
+                backgroundColor: "#55c5a5a8",
+                left: "0",
+                width: "100%"
+            }),
+            options.statusOpts
+        )
+        this.statusBar.addEventListener('zoomIn', console.log)
+        this.statusBar.addEventListener('zoomOut', console.log)
+        this.statusBar.addEventListener('crop', this.getCropData.bind(this))
     }
     private getCropData() {
-        // const imageData = this.imgDrawer.getImageData(0, 0, 200, 200)
-        // const ctx = this.imgDrawer.getCtx()
-        // const ct = this.imgDrawer.getCanvas()
-        // ctx.clearRect(0, 0, ct.width, ct.height)
-        // ctx.putImageData(imageData, 0, 0)
+        const imageData = this.imgDrawer.getImageData(
+            this.borderDrawer.getRect()
+        )
+        const preview = new Preview(imageData);
+        const dataUrl = preview.toDataUrl()
+        const img = new Image()
+        img.src = dataUrl
+        document.body.appendChild(img)
     }
 }
