@@ -1,4 +1,5 @@
 import Mitt from 'mitt';
+import { Rect } from './types'
 
 interface IPoint {
     x: number,
@@ -28,7 +29,7 @@ export default class DrawerLayer {
         this.ctx.clearRect(0, 0, image.width, image.height)
         this.ctx.drawImage(image, 0, 0, image.width, image.height, deltaX, deltaY, image.width * scale, image.height * scale)
     }
-    public getImageData(sx: number, sy: number, sw: number, sh: number) {
+    public getImageData([sx, sy, sw, sh]: Rect) {
         return this.ctx.getImageData(sx, sy, sw, sh)
     }
     public getCanvas() {

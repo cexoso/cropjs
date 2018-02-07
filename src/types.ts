@@ -17,3 +17,4 @@ export interface Ioptions {
     selector: string // seletor container DOM
     statusOpts?: IstatusOption
 }
+export type Rect = [number, number, number, number]
