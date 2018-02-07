@@ -32,24 +32,21 @@ export default class Crop {
     private initDom(options: Ioptions) {
         const container = document.querySelector(options.selector) as HTMLElement;
         container.style.position = "relative"
-        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvent: string, [name: string]: string }) {
+        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }) {
             const tag = document.createElement(tagName)
-            Object.assign(tag.style, {
-                ...style,
-                position: "absolute"
-            })
+            Object.assign(tag.style, { ...style, position: "absolute" })
             container.appendChild(tag)
             return tag;
         }
-        this.imgDrawer = new ImgDrawer(makrLayerAndInsert('canvas', { zIndex: "0", pointerEvent: "initial" }), options.imgOpts)
+        this.imgDrawer = new ImgDrawer(makrLayerAndInsert('canvas', { zIndex: "0", pointerEvents: "initial" }), options.imgOpts)
         if (options.cropOpts) {
-            this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1", pointerEvent: "none" }), options.cropOpts)
+            this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1", pointerEvents: "none" }), options.cropOpts)
         }
         if (options.statusOpts) {
             this.statusBar = new StatusBar(
                 makrLayerAndInsert('div', {
                     zIndex: "2",
-                    pointerEvent: "initial",
+                    pointerEvents: "initial",
                     bottom: "0",
                     height: "100px",
                     backgroundColor: "#55c5a5a8",
@@ -60,6 +57,14 @@ export default class Crop {
             )
             this.statusBar.addEventListener('zoomIn', console.log)
             this.statusBar.addEventListener('zoomOut', console.log)
+            this.statusBar.addEventListener('crop', this.getCropData.bind(this))
         }
+    }
+    private getCropData() {
+        // const imageData = this.imgDrawer.getImageData(0, 0, 200, 200)
+        // const ctx = this.imgDrawer.getCtx()
+        // const ct = this.imgDrawer.getCanvas()
+        // ctx.clearRect(0, 0, ct.width, ct.height)
+        // ctx.putImageData(imageData, 0, 0)
     }
 }
