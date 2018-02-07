@@ -1,4 +1,4 @@
-import Mitt from 'mitt';
+import Mitt from './mitt';
 import { Rect } from './types'
 
 interface IPoint {
