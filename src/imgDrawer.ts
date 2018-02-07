@@ -1,4 +1,4 @@
-import * as Hammer from 'hammerjs'
+import Hammer from 'hammerjs'
 
 import Distance from './distance'
 import DrawerLayer from './drawerLayer'

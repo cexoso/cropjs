@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@types/hammerjs@^2.0.35":
-  version "2.0.35"
-  resolved "http://registry.npm.taobao.org/@types/hammerjs/download/@types/hammerjs-2.0.35.tgz#7b7c950c7d54593e23bffc8d2b4feba9866a7277"
-
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/acorn-jsx/download/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
