@@ -1,9 +1,27 @@
 #cvs {
     height: 100%;
-    background-color: salmon;
+    background-color:#000;
 }
 html,body {
     height: 100%;
     padding: 0;
     margin: 0;
+}
+.status-bar{
+    position: absolute;
+    left: 0px; 
+    bottom: 0px;
+    z-index: 2; 
+    pointer-events: initial; 
+    height: 20px; 
+    padding: 10px 0;
+    width: 100%; 
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-top: 0.2px solid #eee;
+}
+.status-bar>span{
+    display: inline-block;
+    width:33%;
+    text-align: center
 }
