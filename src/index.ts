@@ -28,15 +28,15 @@ export default class Crop {
     constructor(options: Ioptions) {
         this.initDom({ ...defaultOptions, ...options });
     }
-    public async setImg(getImg: () => Promise<ImageBitmap>) {
+    public setImg(getImg: () => Promise<ImageBitmap>) {
         return this.imgDrawer.setImg(getImg)
     }
     private initDom(options: Ioptions) {
         const container = document.querySelector(options.selector) as HTMLElement;
         container.style.position = "relative"
-        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string },className='') {
+        function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
-            tag.setAttribute('class',className)
+            tag.setAttribute('class', className)
             Object.assign(tag.style, { ...style, position: "absolute" })
             container.appendChild(tag)
             return tag;
@@ -51,7 +51,7 @@ export default class Crop {
                 height: "40px", //一行40px,四个一行
                 left: "0",
                 width: "100%"
-            },'status-bar'),
+            }, 'status-bar'),
             options.statusOpts
         )
         this.statusBar.addEventListener('zoomIn', console.log)

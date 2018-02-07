@@ -1,4 +1,4 @@
-import Mitt from 'mitt';
+import Mitt from './mitt';
 import { Rect } from './types'
 
 interface IPoint {
@@ -6,18 +6,18 @@ interface IPoint {
     y: number
 }
 export default class DrawerLayer {
-    protected clientWidth
-    protected clientHeight
+    protected clientWidth: number
+    protected clientHeight: number
     protected needListen = true
     protected ctx: CanvasRenderingContext2D
     protected canvas: HTMLCanvasElement
-    protected emitter: Mitt.Emitter = new Mitt();
+    protected emitter: Mitt = new Mitt();
     private deltaX = 0
     private deltaY = 0
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.fullScreen()
-        this.ctx = canvas.getContext('2d');
+        this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     }
     public drawLine(pointStart: IPoint, pointEnd: IPoint) {
         this.ctx.beginPath();
@@ -51,10 +51,12 @@ export default class DrawerLayer {
     }
     private fullScreen() {
         const parent = this.canvas.parentElement;
-        const { clientWidth, clientHeight } = parent
-        this.canvas.width = clientWidth;
-        this.canvas.height = clientHeight;
-        this.clientWidth = clientWidth;
-        this.clientHeight = clientHeight;
+        if (parent) {
+            const { clientWidth, clientHeight } = parent
+            this.canvas.width = clientWidth;
+            this.canvas.height = clientHeight;
+            this.clientWidth = clientWidth;
+            this.clientHeight = clientHeight;
+        }
     }
 }

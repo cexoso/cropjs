@@ -1,4 +1,5 @@
-import * as Hammer from 'hammerjs'
+import Hammer from 'hammerjs'
+
 import Distance from './distance'
 import DrawerLayer from './drawerLayer'
 import Point from './point'
@@ -8,7 +9,7 @@ export default class ImgDrawe extends DrawerLayer {
     private background: ImageBitmap
     private scale = 1
     private startPoint = new Point(0, 0)
-    constructor(canvas, options: IImgOption) {
+    constructor(canvas: HTMLCanvasElement, options: IImgOption) {
         super(canvas)
         this.initEvent(canvas, options)
     }
@@ -20,8 +21,8 @@ export default class ImgDrawe extends DrawerLayer {
     private drawBackground(startPoint: Point, scale: number) {
         this.drawImg(this.background, startPoint.x, startPoint.y, scale);
     }
-    private initEvent(canvas, options: IImgOption) {
-        const hammertime: any = new Hammer(canvas);
+    private initEvent(canvas: HTMLCanvasElement, options: IImgOption) {
+        const hammertime = new Hammer(canvas);
         hammertime.get('pan').set({ direction: (Hammer as any).DIRECTION_ALL });
         hammertime.get('pinch').set({ enable: true });
         if (options.panImg) {
@@ -31,7 +32,7 @@ export default class ImgDrawe extends DrawerLayer {
             hammertime.on('pinch pinchend', this.pinchBackground.bind(this))
         }
     }
-    private panBackground(e) {
+    private panBackground(e: HammerInput) {
         if (this.background !== null) {
             const p = Point.move(this.startPoint, new Distance(-e.deltaX, -e.deltaY))
             this.drawBackground(p, this.scale);
@@ -40,7 +41,7 @@ export default class ImgDrawe extends DrawerLayer {
             }
         }
     }
-    private pinchBackground(e) {
+    private pinchBackground(e: HammerInput) {
         e.preventDefault()
         if (this.background !== null) {
             const { deltaX, deltaY, scale, type } = e

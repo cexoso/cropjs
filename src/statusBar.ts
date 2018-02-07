@@ -1,9 +1,9 @@
-import Mitt from 'mitt'
+import Mitt, { EventHandle } from './mitt'
 import { IstatusOption } from './types'
 import { onclick } from './utils'
 
 export default class StatusBar {
-    private emitter: Mitt.Emitter
+    private emitter: Mitt
     constructor(div: HTMLElement, options: IstatusOption) {
         const fragment = document.createDocumentFragment()
         this.emitter = new Mitt()
@@ -17,7 +17,7 @@ export default class StatusBar {
         }
         div.appendChild(fragment)
     }
-    public addEventListener(eventName: string, eventHandle: Mitt.Handler) {
+    public addEventListener(eventName: string, eventHandle: EventHandle) {
         return this.emitter.on(eventName, eventHandle)
     }
     private creataBotton(name: string, eventName: string) {

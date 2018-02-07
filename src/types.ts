@@ -12,9 +12,9 @@ export interface IstatusOption {
     zoom: boolean
 }
 export interface Ioptions {
-    cropOpts?: ICropOption
+    cropOpts: ICropOption
     imgOpts: IImgOption
     selector: string // seletor container DOM
-    statusOpts?: IstatusOption
+    statusOpts: IstatusOption
 }
 export type Rect = [number, number, number, number]

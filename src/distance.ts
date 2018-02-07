@@ -7,7 +7,7 @@ export default class Distance {
     }
     public deltaX: number
     public deltaY: number
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         this.deltaX = x;
         this.deltaY = y;
     }
