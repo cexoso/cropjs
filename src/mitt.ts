@@ -1,6 +1,6 @@
 export type EventHandle = (event?: any) => any
 export default class Mitt {
-    private all: {[name: string]: EventHandle[]} 
+    private all: {[name: string]: EventHandle[]} = {}
     public on(type: string, handler: EventHandle) {
         (this.all[type] || (this.all[type] = [])).push(handler);
     }
