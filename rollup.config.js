@@ -10,7 +10,7 @@ export default {
     name: 'cropper',
     output: {
         file: 'index.js',
-        format: 'iife'
+        format: 'cjs'
     },
     plugins: [
         typescriptPlugin({
