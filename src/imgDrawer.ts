@@ -1,10 +1,10 @@
-import Hammer from 'hammerjs'
-
+import * as all from 'hammerjs'
 import Distance from './distance'
 import DrawerLayer from './drawerLayer'
 import Point from './point'
 import { IImgOption } from './types'
 
+const Hammer: HammerStatic = (all as any).default // typed is wrong
 export default class ImgDrawe extends DrawerLayer {
     private background: ImageBitmap
     private scale = 1
