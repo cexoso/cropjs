@@ -2,10 +2,38 @@
     height: 100%;
     background-color:#000;
     background-image: url('./bg.png');
-    display: none
+}
+#file-input{
+    height: 100%;
+}
+.input-box{
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+    padding: 40% 0;
+}
+#file{
+    display: none;
+}
+#esc{
+    font-size: 12px;
+    position: absolute;
+    width: 8em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    top: 0.5em;
+    right: 0.5em;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+
 }
 html,body {
     height: 100%;
     padding: 0;
     margin: 0;
+    overflow: hidden
 }
