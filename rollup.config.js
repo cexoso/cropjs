@@ -1,6 +1,7 @@
 import typescriptPlugin from 'rollup-plugin-typescript';
 import typescript from 'typescript';
 import uglify from 'rollup-plugin-uglify';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
     input: './src/index.ts',
@@ -13,6 +14,9 @@ export default {
     plugins: [
         typescriptPlugin({
             typescript
+        }),
+        postcss({
+            extract: true
         }),
         uglify()
     ]

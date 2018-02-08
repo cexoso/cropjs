@@ -6,6 +6,7 @@
     "scripts": {
         "start": "parcel example01/index.html",
         "build": "rollup -c",
+        "build:lib": "tsc src/index.ts --outDir lib",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -18,6 +19,7 @@
         "eslint-plugin-prettier": "^2.5.0",
         "prettier": "^1.10.2",
         "rollup": "^0.55.3",
+        "rollup-plugin-postcss": "^1.2.8",
         "rollup-plugin-typescript": "^0.8.1",
         "rollup-plugin-uglify": "^3.0.0",
         "tslint": "^5.9.1",
