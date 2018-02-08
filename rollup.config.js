@@ -14,9 +14,7 @@ export default {
         typescriptPlugin({
             typescript
         }),
-        postcss({
-            extract: true
-        }),
+        postcss(),
         uglify()
     ]
 };
