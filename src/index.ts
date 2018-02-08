@@ -48,7 +48,7 @@ export default class Crop {
                 zIndex: "2",
                 pointerEvents: "initial",
                 bottom: "0",
-                height: "40px", //一行40px,四个一行
+                height: "40px", // 一行40px,四个一行
                 left: "0",
                 width: "100%"
             }, 'status-bar'),

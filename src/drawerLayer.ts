@@ -26,16 +26,6 @@ export default class DrawerLayer {
         this.ctx.lineTo(pointEnd.x, pointEnd.y);
         this.ctx.stroke();
     }
-    public drawRectBox(point: IPoint,width,height){
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = "#ffffff";
-        this.ctx.moveTo(point.x, point.y);
-        this.ctx.lineTo(point.x+width, point.y);
-        this.ctx.lineTo(point.x+width, point.y+height);
-        this.ctx.lineTo(point.x, point.y+height);
-        this.ctx.lineTo(point.x, point.y);
-        this.ctx.stroke();
-    }
     public drawImg(image: ImageBitmap, deltaX = 0, deltaY = 0, scale = 1) {
         this.ctx.clearRect(0, 0, image.width, image.height)
         this.ctx.drawImage(image, 0, 0, image.width, image.height, deltaX, deltaY, image.width * scale, image.height * scale)
