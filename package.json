@@ -2,7 +2,8 @@
     "name": "cropjs",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "index.ts",
+    "module": "lib/index.js",
     "scripts": {
         "start": "parcel example01/index.html",
         "build": "rollup -c",
