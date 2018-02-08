@@ -1,9 +1,9 @@
+import './assets/style/style.css'
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
 import Preview from './preview'
 import StatusBar from './statusBar'
 import { Ioptions } from './types'
-import './assets/style/style.css'
 
 type base64 = string
 const defaultOptions: Ioptions = {
