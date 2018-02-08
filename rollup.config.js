@@ -5,11 +5,10 @@ import postcss from 'rollup-plugin-postcss';
 
 export default {
     input: './src/index.ts',
-    format: 'iife',
-    name: 'bundle.js',
+    name: 'cropper',
     output: {
-        file: 'npm_dist/bundle.js',
-        format: 'cjs'
+        file: 'index.js',
+        format: 'iife'
     },
     plugins: [
         typescriptPlugin({
