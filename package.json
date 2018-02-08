@@ -19,6 +19,7 @@
         "prettier": "^1.10.2",
         "rollup": "^0.55.3",
         "rollup-plugin-typescript": "^0.8.1",
+        "rollup-plugin-uglify": "^3.0.0",
         "tslint": "^5.9.1",
         "tslint-config-prettier": "^1.6.0",
         "tslint-eslint-rules": "^4.1.1",
