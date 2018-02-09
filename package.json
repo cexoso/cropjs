@@ -12,7 +12,7 @@
         "build": "run-p build:*",
         "build:es5": "rollup -c",
         "build:es6": "tsc",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"todo test\" && exit 0"
     },
     "keywords": [],
     "files": [
