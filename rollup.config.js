@@ -14,13 +14,13 @@ export default {
         sourcemap: true
     },
     plugins: [
+        common(),
+        resolve({}),
         typescriptPlugin({
             typescript,
             target: 'ES5'
         }),
         postcss(),
-        uglify(),
-        resolve({}),
-        common()
+        uglify()
     ]
 };
