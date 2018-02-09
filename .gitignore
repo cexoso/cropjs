@@ -7,3 +7,4 @@ yarn-error.log
 npm_dist
 es6
 index.js
+index.js.map
