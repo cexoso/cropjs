@@ -8,26 +8,24 @@ export default class StatusBar {
     constructor(div: HTMLElement, options: IStatusOption) {
         const fragment = document.createDocumentFragment()
         this.emitter = new Mitt()
+        fragment.appendChild(this.creataBotton('裁剪', 'crop'));
         if (options.zoom) {
-            fragment.appendChild(this.creataBotton('缩小', 'zoomOut',styles.toolItem));
+            fragment.appendChild(this.creataBotton('缩小', 'zoomOut'));
+            fragment.appendChild(this.creataBotton('放大', 'zoomIn'));
         }
-        fragment.appendChild(this.creataBotton('裁剪', 'crop',styles.toolItem));
-        if (options.zoom) {
-            fragment.appendChild(this.creataBotton('放大', 'zoomIn',styles.toolItem));
-            fragment.appendChild(this.creataBotton('放大', 'zoomIn',styles.toolItem));            
-        }
+        fragment.appendChild(this.creataBotton('取消', 'cancel'));
         div.appendChild(fragment)
     }
     public addEventListener(eventName: string, eventHandle: EventHandle) {
         return this.emitter.on(eventName, eventHandle)
     }
-    private creataBotton(name: string, eventName: string,className: string) {
+    private creataBotton(name: string, eventName: string) {
         const dom = document.createElement('span');
-        dom.setAttribute('class',className)
+        dom.className = styles.toolItem
         dom.innerText = name
         onclick(dom, (e) => this.emitter.emit(eventName, e))
         const wrap = document.createElement('div');
-        wrap.setAttribute('class',styles.toolItemBox);
+        wrap.className = styles.toolItemBox
         wrap.appendChild(dom);
         return wrap;
     }

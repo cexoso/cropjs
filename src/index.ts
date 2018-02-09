@@ -58,7 +58,7 @@ export default class Crop {
     }
     private initDom(dom: DOM, options: Ioptions) {
         const container = typeof dom === 'string' ? document.querySelector(options.selector) as HTMLElement : dom
-        container.setAttribute('class',styles.container);
+        container.setAttribute('class', styles.container);
         function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
             tag.setAttribute('class', className)
@@ -79,6 +79,9 @@ export default class Crop {
         this.statusBar.addEventListener('zoomIn', console.log)
         this.statusBar.addEventListener('zoomOut', console.log)
         this.statusBar.addEventListener('crop', this.getCropData.bind(this))
+        this.statusBar.addEventListener('cancel', () => {
+            this.emitter.emit('cancel');
+        })
     }
     private async getCropData() {
         const { imgDrawer, borderDrawer, option: { result: { mimeType, quality } } } = this
