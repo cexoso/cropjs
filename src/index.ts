@@ -5,6 +5,7 @@ import Mitt, { EventHandle } from './mitt'
 import Preview from './preview'
 import StatusBar from './statusBar'
 import { Ioptions } from './types';
+import { addCls, removeCls } from './utils'
 
 type DOM = string | HTMLElement
 type base64 = string
@@ -36,16 +37,17 @@ export default class Crop {
     private statusBar: StatusBar
     private emitter: Mitt
     private option: Ioptions
+    private container: HTMLElement
     constructor(dom: DOM, options = {}) {
         this.option = { ...defaultOptions, ...options }
         this.initDom(dom, this.option);
         this.emitter = new Mitt();
     }
-    public show() {
-        // todo
+    public show(type: string) {
+        addCls(this.container, styles.full); // todo 暂时只支持全屏展示
     }
     public hide() {
-        // todo
+        removeCls(this.container, styles.full);
     }
     public reset() {
         // todo

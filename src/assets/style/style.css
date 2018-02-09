@@ -29,7 +29,5 @@
 
 .container {
     position: relative;
-    height: 100%;
-    background-color:#000;
     background-image: url(../bg.png);
 }
