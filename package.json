@@ -1,5 +1,5 @@
 {
-    "name": "cropjs",
+    "name": "@cexoso/cropjs",
     "version": "0.0.1",
     "description": "a canvas cropper of Mobile end",
     "main": "index.js",
