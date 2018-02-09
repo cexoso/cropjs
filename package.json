@@ -1,9 +1,12 @@
 {
     "name": "cropjs",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.ts",
+    "version": "0.0.0",
+    "description": "a canvas cropper of Mobile end",
+    "main": "index.js",
+    "browser": "index.js",
     "module": "lib/index.js",
+    "es6": "lib/index.js",
+    "jsnext: main": "lib/index.js",
     "scripts": {
         "start": "parcel example/index.html",
         "build": "run-p build:*",
