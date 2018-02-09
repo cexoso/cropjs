@@ -36,7 +36,7 @@ export default class Crop {
     private statusBar: StatusBar
     private emitter: Mitt
     private option: Ioptions
-    constructor(dom: DOM, options: Ioptions) {
+    constructor(dom: DOM, options = {}) {
         this.option = { ...defaultOptions, ...options }
         this.initDom(dom, this.option);
         this.emitter = new Mitt();
