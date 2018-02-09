@@ -7,14 +7,16 @@ import common from 'rollup-plugin-commonjs';
 
 export default {
     input: './src/index.ts',
-    name: 'cropper',
     output: {
         file: 'index.js',
-        format: 'cjs'
+        format: 'cjs',
+        name: 'cropper',
+        sourcemap: true
     },
     plugins: [
         typescriptPlugin({
-            typescript
+            typescript,
+            target: 'ES5'
         }),
         postcss(),
         uglify(),
