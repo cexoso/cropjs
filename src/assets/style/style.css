@@ -1,24 +1,16 @@
-.status-bar{
+.statusBar {
     position: absolute;
-    left: 0px; 
+    left: 0px;
     bottom: 0px;
-    z-index: 2; 
-    pointer-events: initial; 
+    width: 100%;
     padding: 5px 0;
-    height: 80px;
-    width: 100%; 
     color: #fff;
     background-color: rgba(0, 0, 0, 0.3);
     border-top: 0.2px solid #666;
     background-color: rgba(19, 19, 19, 0.6);
 }
-.tool-item-box{
-    display: inline-block;
-    width:25%;
-    text-align: center;
-    white-space: normal
-}
-.tool-item{
+
+.toolItem {
     display: inline-block;
     height: 20px;
     margin: 5px auto;
@@ -26,4 +18,18 @@
     font-size: 14px;
     background-color: rgba(11, 11, 11, 0.6);
     border-radius: 3px;
+}
+
+.toolItemBox {
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    white-space: normal
+}
+
+.container {
+    position: relative;
+    height: 100%;
+    background-color:#000;
+    background-image: url(../bg.png);
 }
