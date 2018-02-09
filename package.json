@@ -5,7 +5,7 @@
     "main": "index.ts",
     "module": "lib/index.js",
     "scripts": {
-        "start": "parcel example01/index.html",
+        "start": "parcel example/index.html",
         "build": "run-p build:*",
         "build:es5": "rollup -c",
         "build:es6": "tsc",
