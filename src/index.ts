@@ -59,7 +59,7 @@ export default class Crop {
         return this.imgDrawer.setImg(getImg)
     }
     private initDom(dom: DOM, options: Ioptions) {
-        const container = typeof dom === 'string' ? document.querySelector(options.selector) as HTMLElement : dom
+        const container = typeof dom === 'string' ? document.querySelector(dom) as HTMLElement : dom
         container.setAttribute('class', styles.container);
         function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
