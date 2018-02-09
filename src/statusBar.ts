@@ -1,7 +1,7 @@
+import * as styles from './assets/style/style.css'
 import Mitt, { EventHandle } from './mitt'
 import { IStatusOption } from './types'
 import { onclick } from './utils'
-import styles from './assets/style/style.css'
 
 export default class StatusBar {
     private emitter: Mitt

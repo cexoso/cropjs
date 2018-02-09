@@ -1,4 +1,4 @@
-import styles from './assets/style/style.css'
+import * as styles from './assets/style/style.css'
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
 import Mitt, { EventHandle } from './mitt'
