@@ -1,10 +1,10 @@
-import './assets/style/style.css'
+import styles from './assets/style/style.css'
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
 import Mitt, { EventHandle } from './mitt'
 import Preview from './preview'
 import StatusBar from './statusBar'
-import { Ioptions } from './types'
+import { Ioptions } from './types';
 
 type base64 = string
 const defaultOptions: Ioptions = {
@@ -48,7 +48,7 @@ export default class Crop {
     }
     private initDom(options: Ioptions) {
         const container = document.querySelector(options.selector) as HTMLElement;
-        container.style.position = "relative"
+        container.setAttribute('class',styles.container);
         function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
             tag.setAttribute('class', className)
@@ -62,11 +62,8 @@ export default class Crop {
             makrLayerAndInsert('div', {
                 zIndex: "2",
                 pointerEvents: "initial",
-                bottom: "0",
                 height: "40px", // 一行40px,四个一行
-                left: "0",
-                width: "100%"
-            }, 'status-bar'),
+            }, styles.statusBar),
             options.statusOpts
         )
         this.statusBar.addEventListener('zoomIn', console.log)

@@ -1,6 +1,7 @@
 import Mitt, { EventHandle } from './mitt'
 import { IStatusOption } from './types'
 import { onclick } from './utils'
+import styles from './assets/style/style.css'
 
 export default class StatusBar {
     private emitter: Mitt
@@ -8,12 +9,12 @@ export default class StatusBar {
         const fragment = document.createDocumentFragment()
         this.emitter = new Mitt()
         if (options.zoom) {
-            fragment.appendChild(this.creataBotton('缩小', 'zoomOut','tool-item'));
+            fragment.appendChild(this.creataBotton('缩小', 'zoomOut',styles.toolItem));
         }
-        fragment.appendChild(this.creataBotton('裁剪', 'crop','tool-item'));
+        fragment.appendChild(this.creataBotton('裁剪', 'crop',styles.toolItem));
         if (options.zoom) {
-            fragment.appendChild(this.creataBotton('放大', 'zoomIn','tool-item'));
-            fragment.appendChild(this.creataBotton('放大', 'zoomIn','tool-item'));            
+            fragment.appendChild(this.creataBotton('放大', 'zoomIn',styles.toolItem));
+            fragment.appendChild(this.creataBotton('放大', 'zoomIn',styles.toolItem));            
         }
         div.appendChild(fragment)
     }
@@ -26,7 +27,7 @@ export default class StatusBar {
         dom.innerText = name
         onclick(dom, (e) => this.emitter.emit(eventName, e))
         const wrap = document.createElement('div');
-        wrap.setAttribute('class',className+'-box');
+        wrap.setAttribute('class',styles.toolItemBox);
         wrap.appendChild(dom);
         return wrap;
     }
