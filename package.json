@@ -1,6 +1,6 @@
 {
     "name": "@cexoso/cropjs",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "description": "a canvas cropper of Mobile end",
     "main": "index.js",
     "browser": "index.js",
@@ -19,6 +19,7 @@
         "es6",
         "index.js"
     ],
+    "repository": "cexoso/cropjs",
     "author": "",
     "license": "ISC",
     "devDependencies": {
