@@ -1,9 +1,14 @@
 import Crop from '../src/index';
 
 const crop = new Crop({
-    selector: '#cvs'
+    selector: '#cvs',
+    result: {
+        type: 'blob'
+    }
 });
-
+crop.addEventListener('crop', res => {
+    console.log(res);
+});
 window.onload = function() {
     const input = document.getElementById('file');
     const inputBox = document.getElementById('file-input');

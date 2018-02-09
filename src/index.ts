@@ -1,6 +1,7 @@
 import styles from './assets/style/style.css'
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
+import Mitt, { EventHandle } from './mitt'
 import Preview from './preview'
 import StatusBar from './statusBar'
 import { Ioptions } from './types';
@@ -20,14 +21,27 @@ const defaultOptions: Ioptions = {
     statusOpts: {
         zoom: true
     },
-    selector: '#croper'
+    selector: '#croper',
+    result: {
+        type: 'base64',
+        mimeType: '',
+        quality: 1
+    }
 }
+
 export default class Crop {
     private imgDrawer: ImgDrawer
     private borderDrawer: CropperBorder
     private statusBar: StatusBar
+    private emitter: Mitt
+    private option: Ioptions
     constructor(options: Ioptions) {
-        this.initDom({ ...defaultOptions, ...options });
+        this.option = { ...defaultOptions, ...options }
+        this.initDom(this.option);
+        this.emitter = new Mitt();
+    }
+    public addEventListener(eventName: string, eventHandle: EventHandle) {
+        return this.emitter.on(eventName, eventHandle)
     }
     public setImg(getImg: () => Promise<ImageBitmap>) {
         return this.imgDrawer.setImg(getImg)
@@ -56,14 +70,13 @@ export default class Crop {
         this.statusBar.addEventListener('zoomOut', console.log)
         this.statusBar.addEventListener('crop', this.getCropData.bind(this))
     }
-    private getCropData() {
-        const imageData = this.imgDrawer.getImageData(
-            this.borderDrawer.getRect()
-        )
+    private async getCropData() {
+        const { imgDrawer, borderDrawer, option: { result: { mimeType, quality } } } = this
+        const imageData = imgDrawer.getImageData(borderDrawer.getRect())
         const preview = new Preview(imageData);
-        const dataUrl = preview.toDataUrl()
-        const img = new Image()
-        img.src = dataUrl
-        document.body.appendChild(img)
+        this.emitter.emit(
+            'crop',
+            this.option.result.type === 'blob' ? await preview.toBlob(mimeType, quality) : preview.toDataUrl(mimeType, quality)
+        )
     }
 }

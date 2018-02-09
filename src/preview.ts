@@ -9,12 +9,12 @@ export default class Preview {
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
         this.ctx.putImageData(imageData, 0, 0);
     }
-    public toBlob(): Promise<any> {
+    public toBlob(mimeType: string = 'image/png', quality: number = 1): Promise<any> {
         return new Promise((resolve) => {
-            this.canvas.toBlob(resolve)// todo 可能需要关心的type参数
+            this.canvas.toBlob(resolve, mimeType, quality)
         })
     }
-    public toDataUrl(type?: string, quality?: number) {
-        return this.canvas.toDataURL(type, quality)
+    public toDataUrl(mimeType: string = 'image/png', quality: number = 1) {
+        return this.canvas.toDataURL(mimeType, quality)
     }
 }
