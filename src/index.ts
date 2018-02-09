@@ -91,13 +91,12 @@ export default class Crop {
             this.emitter.emit('cancel');
         })
     }
-    private async getCropData() {
+    private getCropData() {
         const { imgDrawer, borderDrawer, option: { result: { mimeType, quality } } } = this
         const imageData = imgDrawer.getImageData(borderDrawer.getRect())
         const preview = new Preview(imageData);
-        this.emitter.emit(
-            'crop',
-            this.option.result.type === 'blob' ? await preview.toBlob(mimeType, quality) : preview.toDataUrl(mimeType, quality)
-        )
+        const promise = this.option.result.type === 'blob' ? preview.toBlob(mimeType, quality) : Promise.resolve(preview.toDataUrl(mimeType, quality));
+        promise.then(res => { this.emitter.emit('crop', res) })
+
     }
 }
