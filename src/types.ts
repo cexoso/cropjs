@@ -8,13 +8,18 @@ export interface IImgOption {
     panImg: boolean,
     pinchImg: boolean,
 }
-export interface IstatusOption {
+export interface IStatusOption {
     zoom: boolean
+}
+export interface IResult {
+    type: 'blob' | 'base64',
+        
 }
 export interface Ioptions {
     cropOpts: ICropOption
     imgOpts: IImgOption
     selector: string // seletor container DOM
-    statusOpts: IstatusOption
+    statusOpts: IStatusOption
+    result: IResult
 }
 export type Rect = [number, number, number, number]

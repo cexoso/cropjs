@@ -1,10 +1,10 @@
 import Mitt, { EventHandle } from './mitt'
-import { IstatusOption } from './types'
+import { IStatusOption } from './types'
 import { onclick } from './utils'
 
 export default class StatusBar {
     private emitter: Mitt
-    constructor(div: HTMLElement, options: IstatusOption) {
+    constructor(div: HTMLElement, options: IStatusOption) {
         const fragment = document.createDocumentFragment()
         this.emitter = new Mitt()
         if (options.zoom) {
