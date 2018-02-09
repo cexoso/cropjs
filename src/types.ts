@@ -13,7 +13,8 @@ export interface IStatusOption {
 }
 export interface IResult {
     type: 'blob' | 'base64',
-        
+    mimeType: string,
+    quality: number
 }
 export interface Ioptions {
     cropOpts: ICropOption
