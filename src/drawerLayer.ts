@@ -39,14 +39,18 @@ export default class DrawerLayer {
     public getCtx() {
         return this.ctx
     }
-    private fullScreen() {
+    public init(w?: number, h?: number) {
+        this.fullScreen(w, h)
+    }
+    private fullScreen(w?: number, h?: number) {
         const parent = this.canvas.parentElement;
         if (parent) {
-            const { clientWidth, clientHeight } = parent
-            this.canvas.width = clientWidth;
-            this.canvas.height = clientHeight;
-            this.clientWidth = clientWidth;
-            this.clientHeight = clientHeight;
+            w = w || parent.clientWidth
+            h = h || parent.clientHeight
+            this.canvas.width = w;
+            this.canvas.height = h;
+            this.clientWidth = w;
+            this.clientHeight = h;
         }
     }
 }

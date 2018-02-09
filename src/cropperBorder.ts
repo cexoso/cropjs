@@ -3,13 +3,18 @@ import Point from './point'
 import { ICropOption, Rect } from './types'
 export default class CropperBorder extends DrawerLayer {
     private rect: Rect
-
+    private options: ICropOption
     constructor(canvas: HTMLCanvasElement, options: ICropOption) {
         super(canvas)
-        this.drawBorder(options)
+        this.options = options;
+        this.init();
     }
     public getRect() {
         return this.rect
+    }
+    public init(w?: number, h?: number) {
+        super.init(w, h);
+        this.drawBorder(this.options)
     }
     private drawRectBox(point: { x: number, y: number }, width: number, height: number) {
         this.ctx.beginPath();

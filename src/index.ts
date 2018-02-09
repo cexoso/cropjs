@@ -23,7 +23,7 @@ const defaultOptions: Ioptions = {
     statusOpts: {
         zoom: true
     },
-    selector: '#croper',
+    containerSize: 'fullScreen',
     result: {
         type: 'base64',
         mimeType: '',
@@ -45,6 +45,11 @@ export default class Crop {
     }
     public show(type: string) {
         addCls(this.container, styles.full); // todo 暂时只支持全屏展示
+        if (this.option.containerSize === 'fullScreen') {
+            const { clientWidth, clientHeight } = document.body
+            this.imgDrawer.init(clientWidth, clientHeight)
+            this.borderDrawer.init(clientWidth, clientHeight);
+        }
     }
     public hide() {
         removeCls(this.container, styles.full);
@@ -55,11 +60,12 @@ export default class Crop {
     public addEventListener(eventName: string, eventHandle: EventHandle) {
         return this.emitter.on(eventName, eventHandle)
     }
-    public setImg(getImg: () => Promise<ImageBitmap>) {
-        return this.imgDrawer.setImg(getImg)
+    public setImg(img: ImageBitmap) {
+        return this.imgDrawer.setImg(img)
     }
     private initDom(dom: DOM, options: Ioptions) {
         const container = typeof dom === 'string' ? document.querySelector(dom) as HTMLElement : dom
+        this.container = container;
         container.setAttribute('class', styles.container);
         function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
