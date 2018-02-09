@@ -6,6 +6,7 @@ import Preview from './preview'
 import StatusBar from './statusBar'
 import { Ioptions } from './types';
 
+type DOM = string | HTMLElement
 type base64 = string
 const defaultOptions: Ioptions = {
     cropOpts: {
@@ -35,10 +36,19 @@ export default class Crop {
     private statusBar: StatusBar
     private emitter: Mitt
     private option: Ioptions
-    constructor(options: Ioptions) {
+    constructor(dom: DOM, options: Ioptions) {
         this.option = { ...defaultOptions, ...options }
-        this.initDom(this.option);
+        this.initDom(dom, this.option);
         this.emitter = new Mitt();
+    }
+    public show() {
+        // todo
+    }
+    public hide() {
+        // todo
+    }
+    public reset() {
+        // todo
     }
     public addEventListener(eventName: string, eventHandle: EventHandle) {
         return this.emitter.on(eventName, eventHandle)
@@ -46,8 +56,8 @@ export default class Crop {
     public setImg(getImg: () => Promise<ImageBitmap>) {
         return this.imgDrawer.setImg(getImg)
     }
-    private initDom(options: Ioptions) {
-        const container = document.querySelector(options.selector) as HTMLElement;
+    private initDom(dom: DOM, options: Ioptions) {
+        const container = typeof dom === 'string' ? document.querySelector(options.selector) as HTMLElement : dom
         container.setAttribute('class',styles.container);
         function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
