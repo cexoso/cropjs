@@ -17,7 +17,8 @@
     "keywords": [],
     "files": [
         "es6",
-        "index.js"
+        "index.js",
+        "index.js.map"
     ],
     "repository": "cexoso/cropjs",
     "author": "",
