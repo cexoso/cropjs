@@ -4,9 +4,9 @@
     "description": "a canvas cropper of Mobile end",
     "main": "index.js",
     "browser": "index.js",
-    "module": "lib/index.js",
-    "es6": "lib/index.js",
-    "jsnext: main": "lib/index.js",
+    "module": "src/index.js",
+    "es6": "src/index.js",
+    "jsnext: main": "src/index.js",
     "scripts": {
         "start": "parcel example/index.html",
         "build": "run-p build:*",
