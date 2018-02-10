@@ -13,6 +13,12 @@ export default class ImgDrawe extends DrawerLayer {
         super(canvas)
         this.initEvent(canvas, options)
     }
+    public init(w?: number, h?: number) {
+        super.init(w, h);
+        if (this.background) {
+            this.drawBackground(this.startPoint, this.scale)
+        }
+    }
     public reset() {
         this.startPoint = new Point(0, 0)
         this.scale = 1;
