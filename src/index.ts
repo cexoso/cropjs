@@ -5,7 +5,7 @@ import Mitt, { EventHandle } from './mitt'
 import Preview from './preview'
 import StatusBar from './statusBar'
 import { Ioptions } from './types';
-import { addCls, removeCls } from './utils'
+import { addCls, hasKey, IObj, merge, removeCls } from './utils'
 
 type DOM = string | HTMLElement
 type base64 = string
@@ -38,20 +38,19 @@ export default class Crop {
     private emitter: Mitt
     private option: Ioptions
     private container: HTMLElement
+    private isShow: boolean = false
     constructor(dom: DOM, options = {}) {
         this.option = { ...defaultOptions, ...options }
         this.initDom(dom, this.option);
         this.emitter = new Mitt();
     }
-    public show(type: string) {
+    public show() {
+        this.isShow = true
         addCls(this.container, "crop_full"); // todo 暂时只支持全屏展示
-        if (this.option.containerSize === 'fullScreen') {
-            const { clientWidth, clientHeight } = document.body
-            this.imgDrawer.init(clientWidth, clientHeight)
-            this.borderDrawer.init(clientWidth, clientHeight);
-        }
+        this.fresh()
     }
     public hide() {
+        this.isShow = false
         removeCls(this.container, "crop_full");
     }
     public reset() {
@@ -63,6 +62,19 @@ export default class Crop {
     }
     public setImg(img: ImageBitmap) {
         return this.imgDrawer.setImg(img)
+    }
+    public setOptions(opts: IObj) {
+        this.option = merge(this.option, opts) as Ioptions
+        if (this.show && hasKey(opts, "cropOpts, imgOpts")) {
+            this.fresh();
+        }
+    }
+    private fresh() {
+        if (this.option.containerSize === 'fullScreen') {
+            const { clientWidth, clientHeight } = document.body
+            this.imgDrawer.init(clientWidth, clientHeight)
+            this.borderDrawer.init(clientWidth, clientHeight);
+        }
     }
     private initDom(dom: DOM, options: Ioptions) {
         const container = typeof dom === 'string' ? document.querySelector(dom) as HTMLElement : dom
@@ -97,8 +109,8 @@ export default class Crop {
         const preview = new Preview(imageData);
         const getBlob = () => preview.toBlob(mimeType, quality);
         const getDataUrl = () => Promise.resolve(preview.toDataUrl(mimeType, quality));
-        const getAll = () => Promise.all([getBlob(), getDataUrl()]).then(([blob, dataUrl]) => ({ blob, dataUrl })) 
-        const map:{[name: string]: () => Promise<any>} = {
+        const getAll = () => Promise.all([getBlob(), getDataUrl()]).then(([blob, dataUrl]) => ({ blob, dataUrl }))
+        const map: { [name: string]: () => Promise<any> } = {
             blob: getBlob,
             dataUrl: getDataUrl,
             all: getAll
