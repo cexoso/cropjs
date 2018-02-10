@@ -37,6 +37,7 @@
     background-image: inline('./bg.png');
     transition: 0.3s height;
     overflow: hidden;
+    z-index: 999
 }
 
 .crop_full {

@@ -74,11 +74,11 @@ export default class Crop {
             container.appendChild(tag)
             return tag;
         }
-        this.imgDrawer = new ImgDrawer(makrLayerAndInsert('canvas', { zIndex: "0", pointerEvents: "initial" }), options.imgOpts)
-        this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1", pointerEvents: "none" }), options.cropOpts)
+        this.imgDrawer = new ImgDrawer(makrLayerAndInsert('canvas', { zIndex: "1000", pointerEvents: "initial" }), options.imgOpts)
+        this.borderDrawer = new CropperBorder(makrLayerAndInsert('canvas', { zIndex: "1001", pointerEvents: "none" }), options.cropOpts)
         this.statusBar = new StatusBar(
             makrLayerAndInsert('div', {
-                zIndex: "2",
+                zIndex: "1002",
                 pointerEvents: "initial",
                 height: "40px", // 一行40px,四个一行
             }, "crop_status_bar"),
