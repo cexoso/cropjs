@@ -5,6 +5,10 @@
       "grid": true
     },
     "postcss-modules": {
+      "generateScopedName": "[name]_[local]_[hash:base64:4]",
+    },
+    "postcss-assets": {
+      "relative": true
     }
   }
 }

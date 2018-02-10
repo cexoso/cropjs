@@ -28,14 +28,8 @@
 }
 
 .container {
-    position: absolute;
-    background-image: url(../bg.png);
-    transition: height 0.3s;
-    height: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-.full {
+    position: relative;
     height: 100%;
+    background-color:#000;
+    background-image: inline('../bg.png');
 }
