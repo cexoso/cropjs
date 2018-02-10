@@ -55,7 +55,7 @@ export default class Crop {
         removeCls(this.container, "crop_full");
     }
     public reset() {
-        // todo
+        this.imgDrawer.reset();
     }
     public addEventListener(eventName: string, eventHandle: EventHandle) {
         return this.emitter.on(eventName, eventHandle)

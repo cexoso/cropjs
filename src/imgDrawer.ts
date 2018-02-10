@@ -13,6 +13,10 @@ export default class ImgDrawe extends DrawerLayer {
         super(canvas)
         this.initEvent(canvas, options)
     }
+    public reset() {
+        this.startPoint = new Point(0, 0)
+        this.scale = 1;
+    }
     public setImg(img: ImageBitmap) {
         this.background = img
         this.drawBackground(new Point(0, 0), 1);
