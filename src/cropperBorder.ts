@@ -7,14 +7,14 @@ export default class CropperBorder extends DrawerLayer {
     constructor(canvas: HTMLCanvasElement, options: ICropOption) {
         super(canvas)
         this.options = options;
-        this.init();
+        this.fresh(options);
     }
     public getRect() {
         return this.rect
     }
-    public init(w?: number, h?: number) {
-        super.init(w, h);
-        this.drawBorder(this.options)
+    public fresh(options: ICropOption, w?: number, h?: number) {
+        this.init(w, h);
+        this.drawBorder(options)
     }
     private drawRectBox(point: { x: number, y: number }, width: number, height: number) {
         this.ctx.beginPath();

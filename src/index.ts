@@ -73,7 +73,7 @@ export default class Crop {
         if (this.option.containerSize === 'fullScreen') {
             const { clientWidth, clientHeight } = document.body
             this.imgDrawer.init(clientWidth, clientHeight)
-            this.borderDrawer.init(clientWidth, clientHeight);
+            this.borderDrawer.fresh(this.option.cropOpts, clientWidth, clientHeight);
         }
     }
     private initDom(dom: DOM, options: Ioptions) {
@@ -108,11 +108,11 @@ export default class Crop {
         const imageData = imgDrawer.getImageData(borderDrawer.getRect())
         const preview = new Preview(imageData);
         const getBlob = () => preview.toBlob(mimeType, quality);
-        const getDataUrl = () => Promise.resolve(preview.toDataUrl(mimeType, quality));
-        const getAll = () => Promise.all([getBlob(), getDataUrl()]).then(([blob, dataUrl]) => ({ blob, dataUrl }))
+        const getBase64 = () => Promise.resolve(preview.toDataUrl(mimeType, quality));
+        const getAll = () => Promise.all([getBlob(), getBase64()]).then(([blob, dataUrl]) => ({ blob, dataUrl }))
         const map: { [name: string]: () => Promise<any> } = {
             blob: getBlob,
-            dataUrl: getDataUrl,
+            base64: getBase64,
             all: getAll
         }
         const promise = map[this.option.result.type]();
