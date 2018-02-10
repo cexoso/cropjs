@@ -14,7 +14,7 @@ export interface IStatusOption {
     zoom: boolean
 }
 export interface IResult {
-    type: 'blob' | 'base64',
+    type: 'blob' | 'base64' | 'all',
     mimeType: string,
     quality: number
 }
