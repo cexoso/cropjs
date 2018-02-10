@@ -8,7 +8,9 @@
     "es6": "src/index.js",
     "jsnext: main": "src/index.js",
     "scripts": {
-        "start": "parcel example/index.html",
+        "start": "run-p start:*",
+        "start:parcel": "parcel example/index.html",
+        "start:rollup": "rollup -c -w",
         "build": "run-p build:*",
         "build:es5": "rollup -c",
         "build:es6": "tsc",
@@ -40,6 +42,7 @@
         "rollup-plugin-postcss": "^1.2.8",
         "rollup-plugin-typescript": "^0.8.1",
         "rollup-plugin-uglify": "^3.0.0",
+        "rollup-watch": "^4.3.1",
         "tslint": "^5.9.1",
         "tslint-config-prettier": "^1.6.0",
         "tslint-eslint-rules": "^4.1.1",

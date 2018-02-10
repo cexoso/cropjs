@@ -18,9 +18,16 @@ export default {
         resolve({}),
         typescriptPlugin({
             typescript,
-            target: 'ES5'
+            target: 'ES5',
+            sourceMap: true,
+            inlineSourceMap: false,
+            inlineSources: false
         }),
         postcss(),
         uglify()
-    ]
+    ],
+    watch: {
+        chokidar: true,
+        exclude: ['node_modules/**']
+    }
 };
