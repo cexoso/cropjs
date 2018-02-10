@@ -1,19 +1,16 @@
 .crop_status_bar {
-    position: absolute;
     left: 0px;
+    font-size: 0;
     bottom: 0px;
     width: 100%;
     padding: 5px 0;
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.3);
     border-top: 0.2px solid #666;
     background-color: rgba(19, 19, 19, 0.6);
 }
 
 .crop_tool_item {
     display: inline-block;
-    height: 20px;
-    margin: 5px auto;
     padding: 4px 12px;
     font-size: 14px;
     background-color: rgba(11, 11, 11, 0.6);

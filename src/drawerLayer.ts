@@ -27,6 +27,8 @@ export default class DrawerLayer {
         this.ctx.stroke();
     }
     public drawImg(image: ImageBitmap, deltaX = 0, deltaY = 0, scale = 1) {
+        console.log(this.clientWidth, this.clientHeight);
+        console.log(image.width, image.height, deltaX, deltaY, image.width * scale, image.height * scale);
         this.ctx.clearRect(0, 0, this.clientWidth, this.clientHeight)
         this.ctx.drawImage(image, 0, 0, image.width, image.height, deltaX, deltaY, image.width * scale, image.height * scale)
     }

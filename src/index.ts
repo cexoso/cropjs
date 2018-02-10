@@ -79,8 +79,7 @@ export default class Crop {
         this.statusBar = new StatusBar(
             makrLayerAndInsert('div', {
                 zIndex: "1002",
-                pointerEvents: "initial",
-                height: "40px", // 一行40px,四个一行
+                pointerEvents: "initial"
             }, "crop_status_bar"),
             options.statusOpts
         )
