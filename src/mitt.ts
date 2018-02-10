@@ -15,4 +15,7 @@ export default class Mitt {
     public emit(type: string, evt?: any) {
         (this.all[type] || []).map((handler) => { handler(evt) });
     }
+    public reset() {
+        this.all = {}
+    }
 }

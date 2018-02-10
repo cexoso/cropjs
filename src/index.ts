@@ -56,6 +56,7 @@ export default class Crop {
     }
     public reset() {
         this.imgDrawer.reset();
+        this.emitter.reset();
     }
     public addEventListener(eventName: string, eventHandle: EventHandle) {
         return this.emitter.on(eventName, eventHandle)
@@ -94,7 +95,15 @@ export default class Crop {
         const { imgDrawer, borderDrawer, option: { result: { mimeType, quality } } } = this
         const imageData = imgDrawer.getImageData(borderDrawer.getRect())
         const preview = new Preview(imageData);
-        const promise = this.option.result.type === 'blob' ? preview.toBlob(mimeType, quality) : Promise.resolve(preview.toDataUrl(mimeType, quality));
+        const getBlob = () => preview.toBlob(mimeType, quality);
+        const getDataUrl = () => Promise.resolve(preview.toDataUrl(mimeType, quality));
+        const getAll = () => Promise.all([getBlob(), getDataUrl()]).then(([blob, dataUrl]) => ({ blob, dataUrl })) 
+        const map:{[name: string]: () => Promise<any>} = {
+            blob: getBlob,
+            dataUrl: getDataUrl,
+            all: getAll
+        }
+        const promise = map[this.option.result.type]();
         promise.then(res => { this.emitter.emit('crop', res) })
 
     }
