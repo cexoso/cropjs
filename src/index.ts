@@ -1,4 +1,5 @@
-import * as styles from './assets/style/style.css'
+import x from './assets/style/style.css'
+const styles = x as any
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
 import Mitt, { EventHandle } from './mitt'
