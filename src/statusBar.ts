@@ -1,4 +1,4 @@
-import * as styles from './assets/style/style.css'
+import './assets/style.css'
 import Mitt, { EventHandle } from './mitt'
 import { IStatusOption } from './types'
 import { onclick } from './utils'
@@ -21,11 +21,11 @@ export default class StatusBar {
     }
     private creataBotton(name: string, eventName: string) {
         const dom = document.createElement('span');
-        dom.className = styles.toolItem
+        dom.className = "crop_tool_item"
         dom.innerText = name
         onclick(dom, (e) => this.emitter.emit(eventName, e))
         const wrap = document.createElement('div');
-        wrap.className = styles.toolItemBox
+        wrap.className = "crop_tool_item_box"
         wrap.appendChild(dom);
         return wrap;
     }

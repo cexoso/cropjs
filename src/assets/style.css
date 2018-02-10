@@ -1,4 +1,4 @@
-.statusBar {
+.crop_status_bar {
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -10,7 +10,7 @@
     background-color: rgba(19, 19, 19, 0.6);
 }
 
-.toolItem {
+.crop_tool_item {
     display: inline-block;
     height: 20px;
     margin: 5px auto;
@@ -20,16 +20,25 @@
     border-radius: 3px;
 }
 
-.toolItemBox {
+.crop_tool_item_box {
     display: inline-block;
     width: 25%;
     text-align: center;
     white-space: normal
 }
 
-.container {
-    position: relative;
-    height: 100%;
+.crop_container {
+    position: absolute;
+    height: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color:#000;
-    background-image: inline('../bg.png');
+    background-image: inline('./bg.png');
+    transition: 0.3s height;
+    overflow: hidden;
+}
+
+.crop_full {
+    height: 100%;
 }

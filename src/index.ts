@@ -1,5 +1,4 @@
-import x from './assets/style/style.css'
-const styles = x as any
+import './assets/style.css'
 import CropperBorder from './cropperBorder'
 import ImgDrawer from './imgDrawer'
 import Mitt, { EventHandle } from './mitt'
@@ -45,7 +44,7 @@ export default class Crop {
         this.emitter = new Mitt();
     }
     public show(type: string) {
-        addCls(this.container, styles.full); // todo 暂时只支持全屏展示
+        addCls(this.container, "crop_full"); // todo 暂时只支持全屏展示
         if (this.option.containerSize === 'fullScreen') {
             const { clientWidth, clientHeight } = document.body
             this.imgDrawer.init(clientWidth, clientHeight)
@@ -53,7 +52,7 @@ export default class Crop {
         }
     }
     public hide() {
-        removeCls(this.container, styles.full);
+        removeCls(this.container, "crop_full");
     }
     public reset() {
         // todo
@@ -67,7 +66,7 @@ export default class Crop {
     private initDom(dom: DOM, options: Ioptions) {
         const container = typeof dom === 'string' ? document.querySelector(dom) as HTMLElement : dom
         this.container = container;
-        container.setAttribute('class', styles.container);
+        container.setAttribute('class', "crop_container");
         function makrLayerAndInsert(tagName: string, style: { zIndex: string, pointerEvents: string, [name: string]: string }, className = ''): any {
             const tag = document.createElement(tagName)
             tag.setAttribute('class', className)
@@ -82,7 +81,7 @@ export default class Crop {
                 zIndex: "2",
                 pointerEvents: "initial",
                 height: "40px", // 一行40px,四个一行
-            }, styles.statusBar),
+            }, "crop_status_bar"),
             options.statusOpts
         )
         this.statusBar.addEventListener('zoomIn', console.log)
