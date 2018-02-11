@@ -1,6 +1,6 @@
 {
     "name": "canvas_cropjs",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "a canvas cropper of Mobile end",
     "main": "index.js",
     "browser": "index.js",
