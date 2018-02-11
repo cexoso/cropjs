@@ -1,6 +1,8 @@
 # cropjs
 A cropper base on mobile.Use canvas show and crop.
 
+# example
+example at [https://cexoso.github.io/cropjs](https://cexoso.github.io/cropjs). Use mobile visit will be better.
 # api
 ## get instance
 ```javascript
