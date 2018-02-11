@@ -1,5 +1,3 @@
-import { container } from "./assets/style/style.css";
-
 export interface ICropOption {
     border: number, // 边框的长宽比 如：1.5 长宽比为1.5 : 1
     left: number, // 50%
