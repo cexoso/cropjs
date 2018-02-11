@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>crop example</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="https://js.fundebug.cn/fundebug.0.3.4.min.js"
-        apikey="81783aa31148615e25254123c1a08756244f1191b5ea19286cba6b3758e4c56f"></script>
+    <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -20,6 +19,9 @@
     </div>
 </body>
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init()</script>
+<script>
+    eruda.init();
+    Raven.config('https://54fe128474fe4623b99c9f0f1d21f63a@sentry.io/286432').install();
+</script>
 <script src="./index.js"></script>
 </html>
