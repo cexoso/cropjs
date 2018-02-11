@@ -96,8 +96,8 @@ export default class Crop {
             }, "crop_status_bar"),
             options.statusOpts
         )
-        this.statusBar.addEventListener('zoomIn', console.log)
-        this.statusBar.addEventListener('zoomOut', console.log)
+        this.statusBar.addEventListener('zoomIn', () => this.imgDrawer.zoom(0.1))
+        this.statusBar.addEventListener('zoomOut', () => this.imgDrawer.zoom(-0.1))
         this.statusBar.addEventListener('crop', this.getCropData.bind(this))
         this.statusBar.addEventListener('cancel', () => {
             this.emitter.emit('cancel');

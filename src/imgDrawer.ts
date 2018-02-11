@@ -27,6 +27,10 @@ export default class ImgDrawe extends DrawerLayer {
         this.background = img
         this.drawBackground(new Point(0, 0), 1);
     }
+    public zoom(scale: number) {
+        this.scale += scale
+        this.drawBackground(this.startPoint, this.scale)
+    }
     private drawBackground(startPoint: Point, scale: number) {
         this.drawImg(this.background, startPoint.x, startPoint.y, scale);
     }
