@@ -1,31 +1,26 @@
-import Crop from '../src/index';
-import imgSrc from './img.jpg';
-
-const crop = new Crop('#cvs');
-setTimeout(() => {
-    crop.show();
-    const image = new Image();
-    image.onload = function() {
-        crop.setImg(image);
-    };
-    image.src = imgSrc;
-}, 700);
-setTimeout(() => {
-    crop.setOptions({
-        cropOpts: {
-            border: 1.5, // 边框的长宽比 如：1.5 长宽比为1.5 : 1
-            left: 0.5, // 50%
-            size: 0.6, // 框架大小，相对于整个canvas比例 size: 0.8 canvas宽度的0.8
-            top: 0.5 // 30%
+import { doCrop } from './cropServer';
+const prepend = (container, dom) => {
+    const { firstChild } = container;
+    if (firstChild) {
+        return container.insertBefore(dom, firstChild);
+    }
+    return container.append(dom);
+};
+const realFile = document.getElementById('real_file');
+const preview = document.getElementById('preview');
+realFile.addEventListener('change', e => {
+    const file = e.target.files[0];
+    const url = URL.createObjectURL(file);
+    doCrop(url).then(res => {
+        const { type, data: { blob, dataUrl } } = res;
+        if (type === 'crop') {
+            const img = new Image();
+            img.src = dataUrl;
+            console.log(blob);
+            // Use form upload blob to backend
+            // const form = new FormData();
+            // form.append('img', blob);
+            prepend(preview, img);
         }
     });
-}, 1300);
-
-// (function() {
-//     var script = document.createElement('script');
-//     script.src = '//cdn.jsdelivr.net/npm/eruda';
-//     document.body.appendChild(script);
-//     script.onload = function() {
-//         eruda.init();
-//     };
-// })();
+});
