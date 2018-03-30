@@ -19,6 +19,7 @@ export default {
         typescriptPlugin({
             typescript,
             target: 'ES5',
+            importHelpers: true,
             sourceMap: true,
             inlineSourceMap: false,
             inlineSources: false
