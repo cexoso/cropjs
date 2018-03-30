@@ -31,7 +31,7 @@ statusOpts: {
 * statusOpts
 ```javascript
 {
-    zoom: true // Add clickable Element for scaling .
+    zoom: true // Add clickable Element for scaling .
 }
 ```
 * result
@@ -39,16 +39,16 @@ statusOpts: {
 {
     type: 'base64' | 'blob' | 'all', // export base64,blob, of all of they.
     mimeType: 'image/png' | 'image/jpeg', // The mimeType of export blob
-    quality: 1 // 0~1 quality
+    quality: 1 // 0~1 quality
 }
 ```
 ## add eventListener
 ```javascript
 crop.addEventListener('crop', onCrop);
-// cancel and crop can be Listened.
+// cancel and crop can be Listened.
 ```
 ## set img
-set img to crop
+set img to crop
 ```javascript
 const img = new Image();
 img.src = URL.createObjectURL(file);
